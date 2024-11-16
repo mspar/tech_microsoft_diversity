@@ -1,0 +1,66 @@
+---
+title: "Seattle Tech Sector Diversity and Microsoft"
+author: "Marc Sparhuber"
+format: revealjs
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(patchwork)
+
+EEO1_2022_PUF1 <- read_xlsx("EEO1 2022 PUF.xlsx", col_types = "text")
+EEO1_2022_PUF1 |> filter(State == "Washington" & CBSA == "Seattle-Tacoma-Bellevue, WA" & County == "King", NAICS3_Name == "Professional, Scientific, and Technical Services") -> washington
+
+washington[washington == "*"] <- NA
+
+## comparison just race
+
+### races in sector
+washington |> select(WHT10:tomrT10) |> t() |> as.data.frame() |> rename(Washington = V1) |> mutate(Washington = as.numeric(Washington),
+  perc_race_sector = round(Washington/sum(Washington)*100,1)
+) -> wash_races
+
+### add microsoft's numbers
+c(46.7, 6.6, 5.4, 35.8, 0.4, 0.2, 3.5) -> microsoft_core_races
+
+wash_races$microsoft_core_races <- microsoft_core_races
+
+
+
+### positions
+washington |> select(MT1:MT1_2) -> wash_positions_M
+washington |> select(FT1:FT1_2) -> wash_positions_F
+
+c("Senior Off and Managers", "Professionals", "Technicians", "Sales Workers", "Clericals", "Craft", "Operatives", "Laborers", "Service", "Mid Off and Managers") -> positions_EEOC
+
+colnames(wash_positions_M) <- positions_EEOC
+colnames(wash_positions_F) <- positions_EEOC
+
+wash_positions_M$Gender <- "M"
+wash_positions_F$Gender <- "F"
+
+rbind(wash_positions_M, wash_positions_F) |> t() |> as.data.frame() |> rename(Male_Seattle = V1, Female_Seattle = V2) |> View()
+```
+
+
+## Quarto
+
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+
+## Bullets
+
+When you click the **Render** button a document will be generated that includes:
+
+-   Content authored with markdown
+-   Output from executable code
+
+## Code
+
+When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
+
+```{r}
+1 + 1
+```
+
+
