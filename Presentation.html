@@ -10,8 +10,10 @@
 <link href="Presentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
+  <meta name="author" content="Ruijun Shi">
   <meta name="author" content="Marc Sparhuber">
-  <title>Seattle Tech Sector Diversity and Microsoft</title>
+  <meta name="author" content="Yiwen Zhang">
+  <title>Diversity, Inclusion, and Seattle: Microsoft’s position within the Washington Tech sector</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,7 +31,26 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="Presentation_files/libs/revealjs/dist/theme/quarto.css">
   <link href="Presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="Presentation_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -243,6 +264,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -319,41 +341,98 @@
       margin-right: 0; 
     }
   </style>
+  <style>
+  #title-slide .title {
+    font-size: 1.5em;
+  }
+  </style>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Seattle Tech Sector Diversity and Microsoft</h1>
+  <h1 class="title">Diversity, Inclusion, and Seattle: Microsoft’s position within the Washington Tech sector</h1>
 
 <div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Ruijun Shi 
+</div>
+</div>
 <div class="quarto-title-author">
 <div class="quarto-title-author-name">
 Marc Sparhuber 
 </div>
 </div>
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Yiwen Zhang 
+</div>
+</div>
 </div>
 
 </section>
-<section id="quarto" class="slide level2">
-<h2>Quarto</h2>
-<p>Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <a href="https://quarto.org/docs/presentations/" class="uri">https://quarto.org/docs/presentations/</a>.</p>
-</section>
-<section id="bullets" class="slide level2">
-<h2>Bullets</h2>
-<p>When you click the <strong>Render</strong> button a document will be generated that includes:</p>
-<ul>
-<li>Content authored with markdown</li>
-<li>Output from executable code</li>
-</ul>
-</section>
-<section id="code" class="slide level2">
-<h2>Code</h2>
-<p>When you click the <strong>Render</strong> button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:</p>
+<section class="slide level2 smaller scrollable" id="references">
+
+<h3 id="public-data-about-the-private-sector">Public Data about the Private Sector</h3>
 <div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+<div class="cell-output-display">
+<p><img data-src="Presentation_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</div>
+</div>
+<div style="font-size: 50%;">
+<ul>
+<li>Fig 1 shows the racial distributions among Microsoft and the greater Seattle King County Tech Sector…<br>
+</li>
+<li>… or at least we would have liked it to do so.</li>
+<li>A central problem here is the fact that the Equal Employment Opportunity Commission data set on minority and gender employment (EEO1) does not contain precise information about which corporations fall into which of their categories.</li>
+<li>This is essentially an aggregation, accessibility, and privacy trade-off. By aggregating the raw data received by the employers, the EEOC addresses privacy issues and also makes the data more accessible to laymen but hard to use for researchers.</li>
+</ul>
+</div>
+<h3 id="varying-definitions">Varying Definitions</h3>
+<div class="cell">
+<div class="cell-output-display">
+<p><img data-src="Presentation_files/figure-revealjs/unnamed-chunk-4-1.png" width="960"></p>
+</div>
+</div>
+<div style="font-size: 50%;">
+<ul>
+<li>Unlike the previous plot, this plot highlights the issue that arises with differing definitions in the data.</li>
+<li>This issue makes it very difficult to precisely compare gender representation within the different levels of organizational structure.</li>
+<li>Though technically the EEOC offers more precise categories in their code book Microsoft’s Diversity and Inclusion Report does not <span class="citation" data-cites="microsoft_2024_nodate">(<a href="#/references" role="doc-biblioref" onclick="">2024</a>)</span>. Which is not surprising, as it is a pdf, and the data gained from it was typed off, as no underlying data set was made accessible to the public. Further, as it is a Global Report, no concise information is given on exactly which of Microsoft’s employees are contained within the data. Likely, they are not just the employees at their headquarters, severely hampering this comparison.</li>
+<li>Aside from the aforementioned problems with the data, a further issue is the use of potentially misleading rhetoric in D&amp;I reports <span class="citation" data-cites="wang_diversity_2024">(<a href="#/references" role="doc-biblioref" onclick="">Wang, 2024</a>)</span>. Due to this, along with the possibility of companies using legal tactics to avoid reporting diversity information altogether <span class="citation" data-cites="bowman_williams_diversity_2018">(<a href="#/references" role="doc-biblioref" onclick="">Bowman Williams, 2018</a>)</span>, <span class="citation" data-cites="adediran_disclosing_2023">Adediran (<a href="#/references" role="doc-biblioref" onclick="">2023</a>)</span> has called for disclosure rules for companies to adhere to. Putting Microsoft in perspective, it is perhaps not an especially negative example to put forth regarding these practices, though their reporting remains vague.</li>
+</ul>
+</div>
+<h3 id="the-variables">The Variables</h3>
+<div style="font-size: 50%;">
+<ul>
+<li>Substantively speaking, the demographic data to be gained from Diversity and Inclusion reports by individual firms, as well as public statistics such as the EEOC’s may serve as mere starting points for organizational research into either the organizational ecology of a corporation such as Microsoft or the community ecology of demographies of regional sectors such as the Washington tech sector (Amazon, Microsoft, Tableau, etc.), respectively <span class="citation" data-cites="haveman_contemporary_2019">(<a href="#/references" role="doc-biblioref" onclick="">Haveman &amp; Wetts, 2019</a>)</span>.</li>
+<li>Returning to this report’s question, it remains difficult to make an appropriate comparison between Seattle’s tech sector’s and Microsoft’s diversity demographics. Regardless, it seems that in comparison to other employers in the category ‘Professional, Scientific, and Technical Services’, Microsoft employs more Black and Asian and fewer White individuals. Looking at the Gender data, a comparison is impossible, as the data aggregation makes it so.</li>
+<li>Prior research has long identified these demographic variables as worth studying, with results pointing toward gender influencing leadership style, to only name one example <span class="citation" data-cites="eagly_gender_1990">(<a href="#/references" role="doc-biblioref" onclick="">Eagly &amp; Johnson, 1990</a>)</span>, whereas diversity more broadly can improve efficiency <span class="citation" data-cites="haveman_contemporary_2019">(e.g., <a href="#/references" role="doc-biblioref" onclick="">Haveman &amp; Wetts, 2019</a>)</span>.</li>
+</ul>
+</div>
+<h3 id="bibliography">Bibliography</h3>
+<div style="font-size: 50%;">
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-adediran_disclosing_2023" class="csl-entry" role="listitem">
+Adediran, A. O. (2023). Disclosing corporate diversity. <em>Virginia Law Review</em>, <em>109</em>.
+</div>
+<div id="ref-bowman_williams_diversity_2018" class="csl-entry" role="listitem">
+Bowman Williams, J. (2018). Diversity as a trade secret. <em>Georgetown Law Journal</em>, <em>107</em>.
+</div>
+<div id="ref-eagly_gender_1990" class="csl-entry" role="listitem">
+Eagly, A. H., &amp; Johnson, B. T. (1990). Gender and leadership style: <span>A</span> meta-analysis. <em>Psychological Bulletin</em>, <em>108</em>(2), 233–256. <a href="https://doi.org/10.1037/0033-2909.108.2.233">https://doi.org/10.1037/0033-2909.108.2.233</a>
+</div>
+<div id="ref-haveman_contemporary_2019" class="csl-entry" role="listitem">
+Haveman, H., &amp; Wetts, R. (2019). Contemporary organizational theory: <span>The</span> demographic, relational, and cultural perspectives. <em>Sociology Compass</em>, <em>13</em>. <a href="https://doi.org/10.1111/soc4.12664">https://doi.org/10.1111/soc4.12664</a>
+</div>
+<div id="ref-microsoft_2024_nodate" class="csl-entry" role="listitem">
+Microsoft. (2024). <em>2024 <span>Global</span> <span>Diversity</span> &amp; <span>Inclusion</span> <span>Report</span></em>.
+</div>
+<div id="ref-wang_diversity_2024" class="csl-entry" role="listitem">
+Wang, J. (2024). The diversity and inclusion report: <span>The</span> rise of a new corporate public reporting genre. <em>Journal of Business and Technical Communication</em>, <em>38</em>(2), 95–136. <a href="https://doi.org/10.1177/10506519231217991">https://doi.org/10.1177/10506519231217991</a>
+</div>
 </div>
 </div>
 <div class="footer footer-default">
@@ -386,13 +465,13 @@ Marc Sparhuber
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
+'smaller': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
+'smaller': true,
  
         // Display controls in the bottom right corner
         controls: false,

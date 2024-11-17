@@ -1,7 +1,23 @@
 ---
-title: "Seattle Tech Sector Diversity and Microsoft"
-author: "Marc Sparhuber"
-format: revealjs
+title: "Diversity, Inclusion, and Seattle: Microsoft's position within the Washington Tech sector"
+author:
+  - Ruijun Shi
+  - Marc Sparhuber
+  - Yiwen Zhang
+format:
+  revealjs:
+    smaller: true
+    scrollable: true
+bibliography: Exported_Items.bib
+csl: apa.csl
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 1.5em;
+      }
+      </style>
+---
 ---
 
 ```{r}
@@ -40,27 +56,164 @@ colnames(wash_positions_F) <- positions_EEOC
 wash_positions_M$Gender <- "M"
 wash_positions_F$Gender <- "F"
 
-rbind(wash_positions_M, wash_positions_F) |> t() |> as.data.frame() |> rename(Male_Seattle = V1, Female_Seattle = V2) |> View()
+rbind(wash_positions_M, wash_positions_F) |> t() |> as.data.frame() |> mutate(Male_Seattle = as.numeric(V1), Female_Seattle = as.numeric(V2)) |> select(-c(1:2)) %>%
+  mutate(total_Seattle = rowSums(.[1:2])) -> wash_positions
+
+wash_positions$Male_Percentage <- round((wash_positions$Male_Seattle / wash_positions$total_Seattle) * 100, 1)
+wash_positions$Female_Percentage <- round((wash_positions$Female_Seattle / wash_positions$total_Seattle) * 100, 1)
+
+tribble(
+  ~Role, ~Female, ~Male,
+  "EXECUTIVE", 29.1, 70.9,
+  "PARTNER + EXECUTIVE", 24.2, 75.8, 
+  "DIRECTOR", 23.9, 76.0,
+  "PEOPLE MANAGER", 28.4, 71.6,
+  "INDIVIDUAL CONTRIBUTOR", 31.7, 68.3,
+  "TECHNICAL ROLES", 26.6, 73.4,
+  "NON-TECHNICAL ROLES", 53.1, 46.8
+) -> msoft_genders
+
+msoft_genders$Role <- tolower(msoft_genders$Role)
+
 ```
-
-
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
-
-## Bullets
-
-When you click the **Render** button a document will be generated that includes:
-
--   Content authored with markdown
--   Output from executable code
-
-## Code
-
-When you click the **Render** button a presentation will be generated that includes both content and the output of embedded code. You can embed code like this:
 
 ```{r}
-1 + 1
+## plotting
+
+wash_races |> rownames_to_column(var = "Race") |> select(-Washington) |> rename(Seattle = perc_race_sector, Microsoft = microsoft_core_races) -> wash_races
+  
+wash_races$Race[wash_races$Race == "WHT10"] <- "White"
+wash_races$Race[wash_races$Race == "BLKT10"] <- "Black"
+wash_races$Race[wash_races$Race == "HISPT10"] <- "Hispanic"
+wash_races$Race[wash_races$Race == "ASIANT10"] <- "Asian"
+wash_races$Race[wash_races$Race == "AIANT10"] <- "American Indian or Alaska Native"
+wash_races$Race[wash_races$Race == "nhopiT10"] <- "Native Hawaiian or Other Pacific Islander"
+wash_races$Race[wash_races$Race == "tomrT10"] <- "Two or More Races"
+
+wash_races_long <- wash_races %>%
+  pivot_longer(
+    cols = c(Seattle, Microsoft),
+    names_to = "Workplace",
+    values_to = "Percentage"
+  )
+
+race_plot <- ggplot(wash_races_long, aes(x = Race, y = Percentage, fill = Workplace)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(
+    title = "Racial Distribution by Workplace (Microsoft vs. Seattle King County Tech Sector*)",
+    x = "Race",
+    y = "Percentage",
+    fill = "Gender",
+    tag = "Fig 1",
+    caption = "Data on 2022 from Microsoft's 2024 Global Diversity & Inclusion Report and\n from EEO1 (2022) by the U.S. Equal Employment Opportunity Commission.\n *closest equivalent to the Tech Sector in the EEO1 data set is 'Professional, Scientific, and Technical Services'"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Seattle" = "orangered2", "Microsoft" = "deepskyblue2"))
+
+
+# Reshape the data using pivot_longer
+msoft_genders_long <- msoft_genders %>%
+  pivot_longer(
+    cols = c(Female, Male),
+    names_to = "Gender",
+    values_to = "Percentage"
+  )
+
+# Create the bar plot
+msoft_genders <- ggplot(msoft_genders_long, aes(x = Role, y = Percentage, fill = Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(
+    title = "Gender Distribution by Role (Microsoft)",
+    x = "Role",
+    y = "Percentage",
+    fill = "Gender",
+    tag = "Fig 2",
+    caption = "Data: Microsoft's 2024 Global Diversity & Inclusion Report"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Female" = "orangered2", "Male" = "deepskyblue2"))
+
+# msoft_genders
+
+wash_positions <- wash_positions[!is.na(wash_positions$Male_Percentage), ]
+
+wash_positions |> rownames_to_column(var = "Role") -> wash_positions
+
+# Reshape the data using pivot_longer
+wash_positions_long <- wash_positions %>%
+  pivot_longer(
+    cols = c(Male_Percentage, Female_Percentage),
+    names_to = "Gender",
+    values_to = "Percentage"
+  )
+
+wash_positions_long <- wash_positions_long |> mutate(Gender = if_else(Gender == "Male_Percentage", "Male", "Female"))
+
+# Create the bar plot
+wash_genders <- ggplot(wash_positions_long, aes(x = Role, y = Percentage, fill = Gender)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  theme_minimal() +
+  labs(
+    title = "Gender Distribution by Role (Seattle - King County)",
+    x = "Role",
+    y = "Percentage",
+    fill = "Gender",
+    tag = "Fig 3",
+    caption = "Data: EEO1 (2022) by the U.S. Equal Employment Opportunity Commission"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Male" = "deepskyblue2", "Female" = "orangered2"))
+
+# wash_genders
 ```
 
+### Public Data about the Private Sector
 
+```{r}
+race_plot
+```
+
+::: {style="font-size: 50%;"}
+
+-   Fig 1 shows the racial distributions among Microsoft and the greater Seattle King County Tech Sector...  
+-   ... or at least we would have liked it to do so.
+-   A central problem here is the fact that the Equal Employment Opportunity Commission data set on minority and gender employment (EEO1) does not contain precise information about which corporations fall into which of their categories.
+-   This is essentially an aggregation, accessibility, and privacy trade-off. By aggregating the raw data received by the employers, the EEOC addresses privacy issues and also makes the data more accessible to laymen but hard to use for researchers.
+
+:::
+
+### Varying Definitions
+
+```{r}
+msoft_genders + wash_genders
+```
+
+::: {style="font-size: 50%;"}
+
+-   Unlike the previous plot, this plot highlights the issue that arises with differing definitions in the data.
+-   This issue makes it very difficult to precisely compare gender representation within the different levels of organizational structure.
+-   Though technically the EEOC offers more precise categories in their code book Microsoft's Diversity and Inclusion Report does not [-@microsoft_2024_nodate]. Which is not surprising, as it is a pdf, and the data gained from it was typed off, as no underlying data set was made accessible to the public. Further, as it is a Global Report, no concise information is given on exactly which of Microsoft's employees are contained within the data. Likely, they are not just the employees at their headquarters, severely hampering this comparison.
+-   Aside from the aforementioned problems with the data, a further issue is the use of potentially misleading rhetoric in D&I reports [@wang_diversity_2024]. Due to this, along with the possibility of companies using legal tactics to avoid reporting diversity information altogether [@bowman_williams_diversity_2018], @adediran_disclosing_2023 has called for disclosure rules for companies to adhere to. Putting Microsoft in perspective, it is perhaps not an especially negative example to put forth regarding these practices, though their reporting remains vague.
+
+:::
+
+### The Variables
+
+::: {style="font-size: 50%;"}
+
+-   Substantively speaking, the demographic data to be gained from Diversity and Inclusion reports by individual firms, as well as public statistics such as the EEOC's may serve as mere starting points for organizational research into either the organizational ecology of a corporation such as Microsoft or the community ecology of demographies of regional sectors such as the Washington tech sector (Amazon, Microsoft, Tableau, etc.), respectively [@haveman_contemporary_2019].
+-   Returning to this report's question, it remains difficult to make an appropriate comparison between Seattle's tech sector's and Microsoft's diversity demographics. Regardless, it seems that in comparison to other employers in the category 'Professional, Scientific, and Technical Services', Microsoft employs more Black and Asian and fewer White individuals. Looking at the Gender data, a comparison is impossible, as the data aggregation makes it so.
+-   Prior research has long identified these demographic variables as worth studying, with results pointing toward gender influencing leadership style, to only name one example [@eagly_gender_1990], whereas diversity more broadly can improve efficiency [e.g., @haveman_contemporary_2019].
+
+:::
+
+### Bibliography
+
+::: {style="font-size: 50%;"}
+
+::: {#refs}
+:::
+
+:::
